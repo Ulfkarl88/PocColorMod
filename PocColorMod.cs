@@ -108,7 +108,7 @@ namespace PocColor
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
             InformationManager.DisplayMessage(new InformationMessage(
-                "POC Color Mod For Bannerlord 1.3 Loaded",
+                "POC Color Mod Loaded",
                 Colors.Yellow));
             // DO NOT APPLY HARMONY HERE - Still too early
         }
