@@ -2810,6 +2810,9 @@ namespace PocColor
                         return;
                     }
 
+                    // Avisar al mapa para redibujar el banner de la etiqueta del jugador
+                    PocColorModPlayerNameplateRefresh.playerBannerChanged = true;
+
                     Log.write(">>> Step 3: Getting banner editor layer...");
 
                     // Get the banner editor layer
@@ -2965,6 +2968,36 @@ namespace PocColor
                 Log.write(">>> ============================================");
                 Log.write(">>> BannerEditorGauntletScreen_OnDone FINISHED");
                 Log.write(">>> ============================================");
+            }
+        }
+
+        // Vanilla no marca la etiqueta del jugador como "sucia" al editar el banner,
+        // asi que el mapa sigue mostrando el banner viejo hasta recargar.
+        // Forzamos un refresco una sola vez despues de pulsar "Done".
+        [HarmonyPatch(typeof(PartyNameplatesVM), "Update")]
+        internal class PocColorModPlayerNameplateRefresh
+        {
+            public static bool playerBannerChanged = false;
+
+            public static void Prefix(PartyNameplatesVM __instance)
+            {
+                if (!playerBannerChanged)
+                    return;
+
+                try
+                {
+                    if (__instance.PlayerNameplate != null)
+                    {
+                        playerBannerChanged = false;
+                        __instance.PlayerNameplate.RefreshDynamicProperties(true);
+                        Log.write(">>> Player nameplate banner refreshed after banner edit");
+                    }
+                }
+                catch (Exception e)
+                {
+                    playerBannerChanged = false;
+                    Log.write($"Error in PlayerNameplateRefresh: {e.Message}");
+                }
             }
         }
 
