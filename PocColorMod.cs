@@ -18,8 +18,8 @@ namespace PocColor
     public class PocColorMod : MBSubModuleBase
     {
         public static PocColorModConfig config { get; set; }
-        public static Map<string, string> bannerKingdomCache { get; set; }
-        public static Map<string, string> bannerClanCache { get; set; }
+        public static Map<string, string> bannerKingdomCache { get; set; } = new Map<string, string>();
+        public static Map<string, string> bannerClanCache { get; set; } = new Map<string, string>();
         public static bool doLog;
         public bool _bannerSavedForCurrentGame = false;
         private CampaignTime _campaignStartTime = CampaignTime.Zero;
