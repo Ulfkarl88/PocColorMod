@@ -183,6 +183,15 @@ namespace PocColor
             string bannerStr = banner != null ? PocColorMod.SerializeBanner(banner) : null;
             return getColorFromConfigInternal(clan, ref banner, ref bannerStr, unitName, isHero, isMounted, isRanged, tier, culture, true);
         }
+
+        // Compatibilidad con Raise Your Banner: busca esta firma de 9 parametros por reflexion
+        public static (int, uint?, uint?, string, string) getBattleColorFromConfig(
+            string clan, ref Banner banner, ref string bannerStr, string unitName,
+            bool isHero, bool isMounted, bool isRanged, int tier, string culture)
+        {
+            return getColorFromConfigInternal(clan, ref banner, ref bannerStr, unitName,
+                isHero, isMounted, isRanged, tier, culture, true);
+        }
         #endregion
 
         #region Internal Config Logic
