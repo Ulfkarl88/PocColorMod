@@ -2890,6 +2890,15 @@ namespace PocColor
                         return;
                     }
 
+                    // COMPAT: Guardar siempre el banner propio del clan (_banner).
+                    // Otros mods (ej. Serve As Soldier) o el reino pueden hacer que Clan.Banner
+                    // devuelva un banner ajeno; ese NO debe persistirse como banner del jugador.
+                    if (playerClan.ClanOriginalBanner != null && playerClan.ClanOriginalBanner != editedBanner)
+                    {
+                        Log.write(">>> Edited banner is not the clan's own banner (borrowed by kingdom/other mod) - saving clan's own banner instead");
+                        editedBanner = playerClan.ClanOriginalBanner;
+                    }
+
                     Log.write(">>> Step 7: Got banner, serializing...");
 
                     // Serialize the new banner

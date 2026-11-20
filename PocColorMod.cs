@@ -1456,7 +1456,8 @@ namespace PocColor
                 string bannerStr = "";
                 try
                 {
-                    bannerStr = Clan.PlayerClan.Banner.Serialize();
+                    // COMPAT: banner propio del clan (_banner), no el que devuelva otro mod/reino
+                    bannerStr = (Clan.PlayerClan.ClanOriginalBanner ?? Clan.PlayerClan.Banner).Serialize();
                     Log.write($">>> Banner serialized: [{bannerStr}]");
                 }
                 catch (Exception serEx)
@@ -1645,7 +1646,8 @@ namespace PocColor
                 string bannerTest = "";
                 try
                 {
-                    bannerTest = Clan.PlayerClan.Banner.Serialize();
+                    // COMPAT: banner propio del clan (_banner), no el que devuelva otro mod/reino
+                    bannerTest = (Clan.PlayerClan.ClanOriginalBanner ?? Clan.PlayerClan.Banner).Serialize();
                 }
                 catch
                 {
