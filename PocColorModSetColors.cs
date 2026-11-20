@@ -2582,6 +2582,14 @@ namespace PocColor
                     }
 
                     __state = PocColorMod.SerializeBanner(__instance.Banner);
+
+                    // Integrated Banner Color Persistence fix: vanilla flattens the ruling clan's
+                    // Kingdom.Banner icon colors on every load. Skip the original; the Postfix still runs.
+                    // Only replicate the useful part of vanilla: refresh the clan's war parties on the map.
+                    foreach (var warParty in __instance.WarPartyComponents)
+                        warParty?.Party?.SetVisualAsDirty();
+
+                    return false;
                 }
                 catch (Exception e)
                 {
