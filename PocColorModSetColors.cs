@@ -935,7 +935,7 @@ namespace PocColor
                         else
                             extraColorMap.TryAdd(character.StringId, new Integer(color1));
 
-                        Traverse.Create(__instance).Field("AgentBanner").SetValue(banner);
+                        Traverse.Create(__instance).Property("AgentBanner").SetValue(banner);
                         __instance.AgentData.ClothingColor1(color1);
                         __instance.AgentData.ClothingColor2(color2);
                     }
@@ -967,7 +967,7 @@ namespace PocColor
                         {
                             color1 = c1.Value;
                             color2 = c2.Value;
-                            Traverse.Create(__instance).Field("AgentBanner").SetValue(banner);
+                            Traverse.Create(__instance).Property("AgentBanner").SetValue(banner);
                             __instance.AgentData.ClothingColor1(color1);
                             __instance.AgentData.ClothingColor2(color2);
                         }
@@ -1051,7 +1051,8 @@ namespace PocColor
             {
                 try
                 {
-                    var leader = (CharacterObject)Traverse.Create(__instance).Field("_leader").GetValue();
+                    var leader = (CharacterObject)Traverse.Create(__instance).Field("_leader").GetValue()
+                                 ?? __instance.Leader?.CharacterObject;
                     string clan = __instance.Party?.LeaderHero?.Clan?.Name?.ToString();
                     string charName = __instance.Name;
 
@@ -1375,9 +1376,7 @@ namespace PocColor
             {
                 try
                 {
-                    var hero = __instance.CurrentCharacter != null
-                        ? (Hero)Traverse.Create(__instance.CurrentCharacter).Field("_hero").GetValue()
-                        : null;
+                    var hero = __instance.CurrentCharacter?.Character?.HeroObject;
 
                     var character = hero?.CharacterObject
                         ?? (__instance.SelectedCharacter?.CharStringId != null
@@ -1997,8 +1996,8 @@ namespace PocColor
                     {
                         string charname = name.Substring(10);
 
-                        // FIXED: CharacterObjectStringId is a SETTER, not a getter
-                        Traverse.Create(data).Property("CharacterObjectStringId").SetValue(charname);
+                        // CharacterObjectStringId is a fluent METHOD (the property is CharacterObjectStringIdData)
+                        data.CharacterObjectStringId(charname);
 
                         Log.write($">>> AGENT_VISUALS_CREATE: PartyIcon detected, charname=[{charname}]");
 
@@ -2732,13 +2731,13 @@ namespace PocColor
                     // CRITICAL FIX: ALWAYS apply colors to Clan.Color and Clan.Color2 (for campaign map display)
                     if (primary != null)
                     {
-                        Traverse.Create(__instance).Field("Color").SetValue(color);
+                        Traverse.Create(__instance).Property("Color").SetValue(color);
                         Log.write($">>> Applied Clan.Color for [{clanName}]: {color}");
                     }
 
                     if (secondary != null)
                     {
-                        Traverse.Create(__instance).Field("Color2").SetValue(color2);
+                        Traverse.Create(__instance).Property("Color2").SetValue(color2);
                         Log.write($">>> Applied Clan.Color2 for [{clanName}]: {color2}");
                     }
 

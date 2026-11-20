@@ -522,7 +522,7 @@ namespace PocColor
                             {
                                 Log.write("> updating primary color for clan");
                                 uint color3 = PocColorModSetColors.parseColor(primary);
-                                Traverse.Create(clan).Field("Color").SetValue(color3);
+                                Traverse.Create(clan).Property("Color").SetValue(color3);
                                 Banner banner5 = clan.Banner;
                                 if (banner5 != null)
                                 {
@@ -534,7 +534,7 @@ namespace PocColor
                                 // FALLBACK: Extract primary color from banner
                                 int colorId = clan.Banner.BannerDataList[0].ColorId;
                                 uint color1 = BannerManager.GetColor(colorId);
-                                Traverse.Create(clan).Field("Color").SetValue(color1);
+                                Traverse.Create(clan).Property("Color").SetValue(color1);
                                 Log.write($"> Extracted primary color from banner: {color1} (colorId:{colorId})");
                             }
 
@@ -543,7 +543,7 @@ namespace PocColor
                             {
                                 Log.write("> updating secondary color for clan");
                                 uint color4 = PocColorModSetColors.parseColor(secondary);
-                                Traverse.Create(clan).Field("Color2").SetValue(color4);
+                                Traverse.Create(clan).Property("Color2").SetValue(color4);
                                 Banner banner6 = clan.Banner;
                                 if (banner6 != null)
                                 {
@@ -569,7 +569,7 @@ namespace PocColor
                                 }
 
                                 uint color2 = BannerManager.GetColor(colorId2);
-                                Traverse.Create(clan).Field("Color2").SetValue(color2);
+                                Traverse.Create(clan).Property("Color2").SetValue(color2);
                                 Log.write($"> Extracted secondary color from banner: {color2} (colorId:{colorId2})");
                             }
 
@@ -800,7 +800,7 @@ namespace PocColor
                     {
                         Log.write("> updating primary color for clan");
                         uint color5 = PocColorModSetColors.parseColor(primary);
-                        Traverse.Create(clan2).Field("Color").SetValue(color5);
+                        Traverse.Create(clan2).Property("Color").SetValue(color5);
                         Banner banner7 = clan2.Banner;
                         if (banner7 != null)
                         {
@@ -812,7 +812,7 @@ namespace PocColor
                         // FALLBACK: Extract primary color from banner
                         int colorId = clan2.Banner.BannerDataList[0].ColorId;
                         uint color1 = BannerManager.GetColor(colorId);
-                        Traverse.Create(clan2).Field("Color").SetValue(color1);
+                        Traverse.Create(clan2).Property("Color").SetValue(color1);
                         Log.write($"> Extracted primary color from banner: {color1} (colorId:{colorId})");
                     }
 
@@ -821,7 +821,7 @@ namespace PocColor
                     {
                         Log.write("> updating secondary color for clan");
                         uint color6 = PocColorModSetColors.parseColor(secondary);
-                        Traverse.Create(clan2).Field("Color2").SetValue(color6);
+                        Traverse.Create(clan2).Property("Color2").SetValue(color6);
                         Banner banner8 = clan2.Banner;
                         if (banner8 != null)
                         {
@@ -847,7 +847,7 @@ namespace PocColor
                         }
 
                         uint color2 = BannerManager.GetColor(colorId2);
-                        Traverse.Create(clan2).Field("Color2").SetValue(color2);
+                        Traverse.Create(clan2).Property("Color2").SetValue(color2);
                         Log.write($"> Extracted secondary color from banner: {color2} (colorId:{colorId2})");
                     }
 
@@ -911,7 +911,7 @@ namespace PocColor
                             if (primary != null)
                             {
                                 uint color = parseColor(primary);
-                                Traverse.Create(clan).Field("Color").SetValue(color);
+                                Traverse.Create(clan).Property("Color").SetValue(color);
                                 if (clan.Banner != null)
                                     clan.Banner.ChangePrimaryColor(color);
                                 Log.write($">>> LOADED: Applied primary color to [{clanName}]: {color}");
@@ -920,7 +920,7 @@ namespace PocColor
                             if (secondary != null)
                             {
                                 uint color2 = parseColor(secondary);
-                                Traverse.Create(clan).Field("Color2").SetValue(color2);
+                                Traverse.Create(clan).Property("Color2").SetValue(color2);
                                 if (clan.Banner != null)
                                     clan.Banner.ChangeIconColors(color2);
                                 Log.write($">>> LOADED: Applied secondary color to [{clanName}]: {color2}");
@@ -1577,13 +1577,13 @@ namespace PocColor
                                 if (cc.Item5 != null)
                                 {
                                     uint c = PocColorModSetColors.parseColor(cc.Item5);
-                                    Traverse.Create(clan).Field("Color").SetValue(c);
+                                    Traverse.Create(clan).Property("Color").SetValue(c);
                                     if (clan.Banner != null) clan.Banner.ChangePrimaryColor(c);
                                 }
                                 if (cc.Item6 != null)
                                 {
                                     uint c2 = PocColorModSetColors.parseColor(cc.Item6);
-                                    Traverse.Create(clan).Field("Color2").SetValue(c2);
+                                    Traverse.Create(clan).Property("Color2").SetValue(c2);
                                     if (clan.Banner != null) clan.Banner.ChangeIconColors(c2);
                                 }
                                 if (string.IsNullOrEmpty(cc.Item5) && string.IsNullOrEmpty(cc.Item6) && cc.Item1)
